@@ -1,0 +1,22 @@
+name: Build and Test React Application
+
+on: [pull_request]
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: yarn, ci, build and test
+        run: |
+          yarn
+          yarn run build
+          yarn run format
+          yarn run lint:fix
