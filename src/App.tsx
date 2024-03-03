@@ -1,33 +1,42 @@
-import {useState} from 'react';
+import {FC, useState} from 'react';
+import {Grid, ThemeProvider} from '@mui/material';
+import {createTheme} from '@mui/material/styles';
 
-import reactLogo from './assets/react.svg';
+import Chat from './components/Chat.tsx';
+import Footer from './components/Footer.tsx';
+import Header from './components/Header.tsx';
+import Map from './components/Map.tsx';
+import ProjectList from './components/ProjectList.tsx';
+import {darkTheme, lightTheme} from './styles/themes';
 
-import './App.css';
+const App: FC = () => {
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-import viteLogo from '/vite.svg';
+    const handleThemeChange = () => {
+        setIsDarkTheme(!isDarkTheme);
+    };
 
-function App() {
-    const [count, setCount] = useState(0);
+    const theme = createTheme(isDarkTheme ? darkTheme : lightTheme);
+
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <div>
-                <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href={'https://react.dev'} target="_blank" rel="noreferrer">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
+                <Header onChange={handleThemeChange} isDarkTheme={isDarkTheme} />
+                <main>
+                    <Grid container spacing={2}>
+                        <Grid item md={12} lg={4}>
+                            <ProjectList />
+                        </Grid>
+                        <Grid item md={12} lg={8}>
+                            <Map />
+                        </Grid>
+                    </Grid>
+                    <Chat />
+                </main>
+                <Footer description={'description'} title={'title'} />
             </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-        </>
+        </ThemeProvider>
     );
-}
+};
 
 export default App;
