@@ -3,6 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "homepage": "https://yurabobeshko.github.io/my-react-app/",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
@@ -12,7 +13,7 @@
         "lint:fix": "eslint --fix .",
         "prepare": "husky install",
         "predeploy": "tsc && vite build",
-        "deploy": "gh-pages -d build"
+        "deploy": "gh-pages -d dist"
     },
     "dependencies": {
         "gh-pages": "^6.1.1",
